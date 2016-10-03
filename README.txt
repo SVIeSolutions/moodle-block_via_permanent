@@ -15,4 +15,5 @@ Once the bloc is installed, you can use it in a course as follows.
 3. Create your Via activities as normal
 4. Any permanent activity will appear atomatically in the list.
 
-*Permanent activities have no begining or end date, you may control its' access with the waiting room. See the Via guide for reference.
+*Permanent activities have no begining or end date,
+you may control its' access with the waiting room. See the Via guide for reference.

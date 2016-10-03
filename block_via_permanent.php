@@ -17,19 +17,33 @@
 /**
  * Via permanent block.
  *
- * Allows students to manage their user information on the via Live!
- * server from Moodle and admins/teachers to add students and other users
- * to a remote via Live! server.
- *
+ * @package    contrib
+ * @subpackage block_via_permanent
  * @copyright 2011 - 2016 SVIeSolutions
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ * This is class block_via_permanent
+ *
+ */
 class block_via_permanent extends block_list {
 
+    /**
+     * This is method init
+     *
+     * @return string This is the bloc title
+     *
+     */
     public function init() {
         $this->title   = get_string('blockstring', 'block_via_permanent');
     }
 
+    /**
+     * Creates the blocks main content
+     *
+     * @return string
+     */
     public function get_content() {
         global $CFG, $DB, $USER;
 
@@ -61,6 +75,10 @@ class block_via_permanent extends block_list {
         return $this->content;
     }
 
+    /**
+     * Set the applicable formats for this block to all
+     * @return array
+     */
     public function applicable_formats() {
         return array('all' => true, 'mod' => false, 'my' => false, 'admin' => false, 'tag' => false);
     }
