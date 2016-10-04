@@ -17,15 +17,14 @@
 /**
  * Via permanent block.
  *
- * @package    contrib
  * @subpackage block_via_permanent
  * @copyright 2011 - 2016 SVIeSolutions
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
- * This is class block_via_permanent
- *
+ * Via permanent block.
+ * Extends moodle class block_list.
  */
 class block_via_permanent extends block_list {
 

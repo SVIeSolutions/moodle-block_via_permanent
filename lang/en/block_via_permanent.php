@@ -17,7 +17,6 @@
 /**
  * Strings for component 'block_via_permanent', language 'en'
  *
- * @package    contrib
  * @package    block_via_permanent
  * @copyright 1999 onwards SVIeSolutions
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
