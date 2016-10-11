@@ -60,15 +60,15 @@ class block_via_permanent extends block_list {
         $sql = "SELECT cm.id, v.name  FROM mdl_via v
             JOIN mdl_course_modules cm ON v.id = cm.instance
             JOIN mdl_modules m ON m.id = cm.module
-            WHERE v.activitytype = 2 AND m.name = 'via' AND v.course = $courseid AND cm.course = $courseid AND cm.visible = 1
+            WHERE v.activitytype = ? AND m.name = ? AND v.course = ? AND cm.course = ? AND cm.visible = ?
             ORDER BY v.name DESC";
-        $result = $DB->get_records_sql($sql);
+        $result = $DB->get_records_sql($sql, array(2, 'via', $courseid, $courseid, 1));
 
         if ($result) {
             foreach ($result as $row) {
                 $this->content->items[] = '<a href="' . $CFG->wwwroot . '/mod/via/view.php?id=' . $row->id . '" >
                 <img src="' . $CFG->wwwroot .
-                '/mod/via/pix/icon.png" width="20" height="20" alt="" align="absmiddle"/>' . $row->name. '</a><br />';
+                '/mod/via/pix/icon.png" class="via icon" alt="via" align="absmiddle"/>' . $row->name. '</a><br />';
             }
         }
         return $this->content;
