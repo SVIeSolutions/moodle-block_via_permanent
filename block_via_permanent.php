@@ -57,13 +57,13 @@ class block_via_permanent extends block_list {
         $this->content->items = array();
         $this->content->icons = array();
 
-        $sql = "SELECT cm.id, v.name  FROM mdl_via v
-            JOIN mdl_course_modules cm ON v.id = cm.instance AND cm.course = v.course
-            JOIN mdl_modules m ON m.id = cm.module
-			JOIN moodletest.mdl_via_participants vp ON vp.activityid = v.id
+        $sql = "SELECT cm.id, v.name  FROM {via} v
+            JOIN {course_modules} cm ON v.id = cm.instance AND cm.course = v.course
+            JOIN {modules} m ON m.id = cm.module
+            JOIN {via_participants} vp ON vp.activityid = v.id
             WHERE v.activitytype = 2 AND m.name = 'via' AND v.course = ? AND cm.visible = 1 AND vp.userid = ?
             ORDER BY v.name DESC";
-		$result = $DB->get_records_sql($sql, array($courseid, $USER->id));
+        $result = $DB->get_records_sql($sql, array($courseid, $USER->id));
 
         if ($result) {
             foreach ($result as $row) {
