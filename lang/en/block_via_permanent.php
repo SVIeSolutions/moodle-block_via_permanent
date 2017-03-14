@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_via_permanent', language 'en'
+ * Via block caps.
  *
  * @package    block_via_permanent
- * @copyright 1999 onwards SVIeSolutions
+ * @copyright  SVIeSolutions <alexandra.dinan@sviesolutions.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -31,3 +31,4 @@ $string['configadminview'] = 'What should the admin see in the course list block
 $string['confighideallcourseslink'] = 'Hide "All courses" link at the bottom of the block. Link hiding does not affects Admin\'s view';
 $string['hideallcourseslink'] = 'Hide All courses link';
 $string['owncourses'] = 'Admin user sees own courses';
+$string['pluginname'] = 'Courses';

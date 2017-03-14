@@ -15,37 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Via permanent block.
+ * Via block.
  *
- * @subpackage block_via_permanent
- * @copyright 2011 - 2016 SVIeSolutions
+ * @package   block_via_permanent
+ * @copyright  SVIeSolutions <alexandra.dinan@sviesolutions.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/**
- * Via permanent block.
- * Extends moodle class block_list.
- */
 class block_via_permanent extends block_list {
 
-    /**
-     * This is method init
-     *
-     * @return string This is the bloc title
-     *
-     */
     public function init() {
         $this->title   = get_string('blockstring', 'block_via_permanent');
     }
 
-    /**
-     * Creates the blocks main content
-     *
-     * @return string
-     */
     public function get_content() {
-        global $CFG, $DB, $USER;
-
+        global $CFG, $DB, $USER, $COURSE;
         if ($this->content !== null) {
             return $this->content;
         }
@@ -57,29 +41,38 @@ class block_via_permanent extends block_list {
         $this->content->items = array();
         $this->content->icons = array();
 
-        $sql = "SELECT cm.id, v.name  FROM {via} v
-            JOIN {course_modules} cm ON v.id = cm.instance AND cm.course = v.course
-            JOIN {modules} m ON m.id = cm.module
-            JOIN {via_participants} vp ON vp.activityid = v.id
-            WHERE v.activitytype = 2 AND m.name = 'via' AND v.course = ? AND cm.visible = 1 AND vp.userid = ?
-            ORDER BY v.name DESC";
-        $result = $DB->get_records_sql($sql, array($courseid, $USER->id));
+        $context = context_course::instance($COURSE->id);
 
-        if ($result) {
-            foreach ($result as $row) {
-                $this->content->items[] = '<a href="' . $CFG->wwwroot . '/mod/via/view.php?id=' . $row->id . '" >
-                <img src="' . $CFG->wwwroot .
-                '/mod/via/pix/icon.png" class="via icon" alt="via" align="absmiddle"/>' . $row->name. '</a><br />';
+        if (!has_capability('mod/via:manage', $context)) {
+            $groupings = groups_get_user_groups($COURSE->id, $USER->id);
+        }
+
+        $sql = "SELECT cm.id, v.name, v.groupingid FROM {via} v
+                JOIN {course_modules} cm ON v.id = cm.instance
+                JOIN {modules} m ON m.id = cm.module
+                LEFT JOIN {via_participants} vp ON vp.activityid = v.id
+                WHERE v.activitytype = 2 AND m.name = 'via' AND v.course = ? AND cm.course = ? AND cm.visible = 1 AND vp.userid = ?
+                ORDER BY v.name DESC";
+        $vias = $DB->get_records_sql($sql, array($courseid, $courseid, $userid));
+
+        if ($vias) {
+            foreach ($vias as $via) {
+
+                if (isset($groupings) && $via->groupingid != 0) {
+                    if (!array_key_exists($via->groupingid, $groupings)) {
+                        continue;
+                    }
+                }
+                $this->content->items[] = '<a href="' . $CFG->wwwroot . '/mod/via/view.php?id=' . $via->id . '" >
+                    <img src="' . $CFG->wwwroot . '/mod/via/pix/icon.png" width="20" height="20"
+                    alt="" align="absmiddle"/>' . $via->name. '</a>'. '<br />';
             }
         }
         return $this->content;
     }
 
-    /**
-     * Set the applicable formats for this block to all
-     * @return array
-     */
     public function applicable_formats() {
         return array('all' => true, 'mod' => false, 'my' => false, 'admin' => false, 'tag' => false);
     }
+
 }

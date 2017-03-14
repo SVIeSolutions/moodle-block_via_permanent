@@ -15,21 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Via Permanent Block - version details
+ * Via Permanent activities block.
  *
- * @package    block_via_permanent
- * @copyright 1999 onwards SVIeSolutions
+ * @package   block_via_permanent
+ * @copyright  SVIeSolutions <alexandra.dinan@sviesolutions.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version = 2016042006;
-$plugin->requires  = 2011033001;  // Requires this Moodle version.
+$plugin->version = 2017030101;
+$plugin->requires = 2011033003; // Requires this Moodle version.
 $plugin->component = 'block_via_permanent'; // Full name of the plugin (used for diagnostics).
 $plugin->maturity = MATURITY_STABLE; // This is considered as ready for production sites.
-$plugin->release = 'v2.7-r6'; // This is our first revision for Moodle 2.7.x branch.
-
+$plugin->release = 'v3.2-r1';
 $plugin->dependencies = array(
-    'mod_via' => 2016042000,  // The Via activity must be present.
+    'mod_via' => 2017030101,
 );
